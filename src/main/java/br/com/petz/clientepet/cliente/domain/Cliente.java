@@ -1,0 +1,58 @@
+package br.com.petz.clientepet.cliente.domain;
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.br.CPF;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@Getter
+@Entity
+public class Cliente {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", updatable = false, unique = true, nullable = false)
+    private UUID idCliente;
+    @NotBlank
+    private String nome;
+
+    @NotBlank
+    @Email
+    private String email;
+
+    @NotBlank
+    private String telefone;
+    private Sexo sexo;
+
+    @NotNull
+    private LocalDate dataNascimento;
+    @CPF
+    private String cpf;
+
+    @NotNull
+    private Boolean aceitaTermos;
+
+    private LocalDateTime dataCadastro;
+    private LocalDateTime dataHoraDaUltimaAlteracao;
+
+    public Cliente(String nome, String email, String telefone, Sexo sexo, LocalDate dataNascimento, String cpf, boolean aceitaTermos, LocalDateTime dataHoraDaUltimaAlteracao, LocalDateTime dataCadastro) {
+        this.nome = nome;
+        this.email = email;
+        this.telefone = telefone;
+        this.sexo = sexo;
+        this.dataNascimento = dataNascimento;
+        this.cpf = cpf;
+        this.aceitaTermos = aceitaTermos;
+        this.dataHoraDaUltimaAlteracao = dataHoraDaUltimaAlteracao;
+        this.dataCadastro = dataCadastro;
+
+    }
+}

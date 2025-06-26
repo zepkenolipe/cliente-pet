@@ -7,14 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
-@RestController
-@RequestMapping("/")
 public class ClientePetApplication {
 
-    @GetMapping
-    public String getHomeTeste(){
-        return "Cliente Pet Application";
-    }
 
     public static void main(String[] args) {
         SpringApplication.run(ClientePetApplication.class, args);

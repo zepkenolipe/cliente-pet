@@ -20,7 +20,6 @@ public class ClienteController implements ClienteAPI {
         ClienteResponse clienteCriado = clienteService.criaCliente(clienteRequest);
         log.info("[finaliza] ClienteController - postCliente");
         return clienteCriado;
-
     }
 
     @Override
@@ -35,7 +34,8 @@ public class ClienteController implements ClienteAPI {
     public ClienteDetalhadoResponse getClientesAtravesId(UUID idCliente) {
         log.info("[inicia] ClienteController - getClientesAtravesId");
         log.info("[idCliente] {}", idCliente);
+        ClienteDetalhadoResponse clienteDetalhado = clienteService.buscaClienteAtravesId(idCliente);
         log.info("[inicia] ClienteController - getClientesAtravesId");
-        return null;
+        return clienteDetalhado;
     }
 }

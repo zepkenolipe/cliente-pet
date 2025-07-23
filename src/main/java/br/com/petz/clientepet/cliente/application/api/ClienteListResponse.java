@@ -12,8 +12,8 @@ public class ClienteListResponse {
     private UUID idCliente;
     private String nome;
     private String cpf;
-    private String celular;
     private String email;
+    private String celular;
 
     public static List<ClienteListResponse> converte(List<Cliente> clientes) {
         return clientes.stream()

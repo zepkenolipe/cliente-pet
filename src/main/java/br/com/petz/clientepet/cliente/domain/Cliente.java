@@ -20,7 +20,7 @@ import java.util.UUID;
 public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", updatable = false, unique = true, nullable = false)
+    @Column(columnDefinition = "uuid", name = "idCliente", updatable = false, unique = true, nullable = false)
     private UUID idCliente;
     @NotBlank
     private String nome;
@@ -38,11 +38,9 @@ public class Cliente {
     private LocalDate dataNascimento;
     @CPF
     private String cpf;
-
     @NotNull
     private Boolean aceitaTermos;
-
-    private LocalDateTime dataCadastro;
+    private LocalDateTime dataHoraDoCadastro;
     private LocalDateTime dataHoraDaUltimaAlteracao;
 
     public Cliente(ClienteRequest clienteRequest) {
@@ -54,7 +52,7 @@ public class Cliente {
         this.dataNascimento = clienteRequest.getDataNascimento();
         this.cpf = clienteRequest.getCpf();
         this.aceitaTermos = clienteRequest.getAceitaTermos();
-        this.dataCadastro = LocalDateTime.now();
+        this.dataHoraDoCadastro = LocalDateTime.now();
     }
 }
 

@@ -4,7 +4,7 @@ import br.com.petz.clientepet.cliente.domain.Cliente;
 import br.com.petz.clientepet.cliente.domain.Sexo;
 import lombok.Value;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 @Value
 public class ClienteDetalhadoResponse {
@@ -15,7 +15,7 @@ public class ClienteDetalhadoResponse {
     private Sexo sexo;
     private String email;
     private Boolean aceitaTermos;
-    private LocalDate DataCadastro;
+    private LocalDateTime DataHoraDoCadastro;
 
     public ClienteDetalhadoResponse(Cliente cliente) {
         this.idCliente = cliente.getIdCliente();
@@ -25,6 +25,6 @@ public class ClienteDetalhadoResponse {
         this.sexo = cliente.getSexo();
         this.email = cliente.getEmail();
         this.aceitaTermos = cliente.getAceitaTermos();
-        this.DataCadastro = cliente.getDataCadastro().toLocalDate();
+        this.DataHoraDoCadastro = cliente.getDataHoraDoCadastro();
     }
 }

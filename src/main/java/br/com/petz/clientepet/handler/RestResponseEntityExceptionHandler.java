@@ -1,6 +1,7 @@
 package br.com.petz.clientepet.handler;
 
 import lombok.extern.log4j.Log4j2;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -15,9 +16,35 @@ import java.util.Map;
 @RestControllerAdvice
 @Log4j2
 public class RestResponseEntityExceptionHandler {
+
     @ExceptionHandler(APIException.class)
     public ResponseEntity<ErrorApiResponse> handlerGenericException(APIException ex) {
         return ex.buildErrorResponseEntity();
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<ErrorApiResponse> handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
+        log.error("DataIntegrityViolationException: ", ex);
+        String message = "Violação de integridade de dados.";
+        String description = "Já existe um registro com o mesmo valor único. Por exemplo, CPF ou e-mail já estão cadastrados.";
+
+        // Tenta identificar se a causa foi o CPF duplicado para personalizar ainda mais
+        if (ex.getRootCause() != null && ex.getRootCause().getMessage() != null) {
+            String rootMessage = ex.getRootCause().getMessage();
+            if (rootMessage.contains("CLIENTE(CPF")) {
+                message = "CPF já cadastrado para outro cliente.";
+                description = "O CPF informado já está cadastrado no sistema.";
+            } else if (rootMessage.contains("CLIENTE(EMAIL")) {
+                message = "E-mail já cadastrado para outro cliente.";
+                description = "O e-mail informado já está cadastrado no sistema.";
+            }
+        }
+
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(ErrorApiResponse.builder()
+                        .description(description)
+                        .message(message)
+                        .build());
     }
 
     @ExceptionHandler(Exception.class)
@@ -26,7 +53,7 @@ public class RestResponseEntityExceptionHandler {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(ErrorApiResponse.builder()
                         .description("INTERNAL SERVER ERROR!")
-                        .message("POR FAVOR INFORME AO ADIMINISTRADOR DO SISTEMA!")
+                        .message("POR FAVOR INFORME AO ADMINISTRADOR DO SISTEMA!")
                         .build());
     }
 

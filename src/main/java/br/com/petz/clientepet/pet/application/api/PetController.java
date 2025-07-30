@@ -1,5 +1,6 @@
 package br.com.petz.clientepet.pet.application.api;
 
+import br.com.petz.clientepet.cliente.application.api.ClienteDetalhadoResponse;
 import br.com.petz.clientepet.pet.application.service.PetService;
 import br.com.petz.clientepet.pet.domain.Pet;
 import jakarta.validation.Valid;
@@ -20,7 +21,7 @@ public class PetController implements PetAPI {
     public PetResponse postPet(UUID idCliente, @Valid PetRequest petRequest) {
         log.info("[inicia] PetController - postPet");
         log.info("[idCliente] {}", idCliente);
-        PetResponse pet = petService.criaPet (idCliente, petRequest);
+        PetResponse pet = petService.criaPet(idCliente, petRequest);
         log.info("[finaliza] PetController - postPet");
         return pet;
     }
@@ -31,5 +32,12 @@ public class PetController implements PetAPI {
         List<PetClienteListResponse> petsDoCliente = petService.buscaPetsDoClienteComID(idCliente);
         log.info("[finaliza] PetController - getPetsDoClienteComId");
         return petsDoCliente;
+    }
+
+    @Override
+    public ClienteDetalhadoResponse getPetAtravesId(UUID idCliente, UUID idPet) {
+        log.info("[inicia] PetController - getPetAtravesId");
+        log.info("[finaliza] PetController - getPetAtravesId");
+        return null;
     }
 }

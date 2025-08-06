@@ -30,4 +30,5 @@ public class PetInfraRepository implements PetRepository {
         log.info("[finaliza] PetInfraRepository - buscaPetsDoClienteComID");
         return pets;
     }
+
 }

@@ -1,8 +1,6 @@
 package br.com.petz.clientepet.pet.application.api;
 
-import br.com.petz.clientepet.cliente.application.api.ClienteDetalhadoResponse;
 import br.com.petz.clientepet.pet.application.service.PetService;
-import br.com.petz.clientepet.pet.domain.Pet;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -35,9 +33,12 @@ public class PetController implements PetAPI {
     }
 
     @Override
-    public ClienteDetalhadoResponse getPetAtravesId(UUID idCliente, UUID idPet) {
-        log.info("[inicia] PetController - getPetAtravesId");
-        log.info("[finaliza] PetController - getPetAtravesId");
-        return null;
+    public PetClienteDetalheResponse getPetDoClienteComId(UUID idCliente, UUID idPet) {
+        log.info("[inicia] PetController - getPetDoClienteComId");
+        log.info("[idCliente] {} - [idPet] {}", idCliente, idPet);
+        PetClienteDetalheResponse pet = petService.buscaPetDoClienteComID(idCliente,idPet);
+        log.info("[finaliza] PetController - getPetDoClienteComId");
+        return pet;
     }
 }
+

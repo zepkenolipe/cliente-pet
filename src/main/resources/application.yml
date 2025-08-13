@@ -2,6 +2,13 @@ server:
   servlet:
     context-path: /cliente-pet/api
 
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+    path: /swagger
+
 spring:
   datasource:
     url: jdbc:h2:mem:demodb
@@ -9,7 +16,7 @@ spring:
     password:
     driver-class-name: org.h2.Driver
 
-    h2:
-      console:
-        enabled: true
-        path: /h2-console
+  h2:
+    console:
+      enabled: true
+      path: /console
